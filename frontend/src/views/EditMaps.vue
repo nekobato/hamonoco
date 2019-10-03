@@ -95,6 +95,9 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .maps {
   position: relative;
+  width: 3000px;
+  height: 3000px;
+  text-align: left;
 }
 .map-container {
   min-height: 100%;
@@ -122,7 +125,7 @@ export default Vue.extend({
   position: absolute;
 }
 .edit-position-field-container {
-  position: absolute;
+  position: fixed;
   top: 16px;
   right: 16px;
   width: 320px;

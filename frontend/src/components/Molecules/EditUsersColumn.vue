@@ -9,6 +9,9 @@
     <div class="col nickname-column">
       <TextInput :value="user.nickname" placeholder="Nickname" @update="updateNickname" />
     </div>
+    <div class="col nickname-column">
+      <TextInput :value="user.team" placeholder="Team" @update="updateTeam" />
+    </div>
     <div class="col location-column">
       <a href>Location</a>
     </div>
@@ -29,6 +32,9 @@ export default Vue.extend({
     },
     updateNickname(nickname: string) {
       this.$emit('update', { user: { ...this.user, nickname }, index: this.index });
+    },
+    updateTeam(team: string) {
+      this.$emit('update', { user: { ...this.user, team }, index: this.index });
     },
   },
 });
