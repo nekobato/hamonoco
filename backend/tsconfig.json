@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "strict": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

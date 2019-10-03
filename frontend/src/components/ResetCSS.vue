@@ -1,6 +1,8 @@
-<template></template>
+<template>
+  <div />
+</template>
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 export default Vue.extend({});
 </script>
 
@@ -9,6 +11,18 @@ export default Vue.extend({});
   v2.0 | 20110126
   License: none (public domain)
 */
+
+html,
+body {
+  min-height: 100%;
+  background: transparent;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
 
 html,
 body,
@@ -127,7 +141,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {

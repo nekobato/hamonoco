@@ -2,27 +2,27 @@
   <div id="app">
     <ResetCSS />
     <router-view />
-    <div id="nav"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import ResetCSS from "@/components/ResetCSS.vue";
+import Vue from 'vue';
+import ResetCSS from '@/components/ResetCSS.vue';
 
-@Component({
-  components: { ResetCSS }
-})
-export default class App extends Vue {}
+export default Vue.extend({
+  components: { ResetCSS },
+});
 </script>
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-width: 100%;
+  min-height: 100%;
 }
 #nav {
   padding: 30px;
