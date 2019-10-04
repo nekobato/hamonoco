@@ -17,13 +17,17 @@
       />
     </div>
     <PulldownButton class="map-name">{{ map.title }}</PulldownButton>
-    <SearchInput class="search-input" placeholder="Search" />
+    <SearchInput class="search-input" placeholder="Search" @click.native="onClickSearch" />
     <div class="edit-position-field-container">
       <EditLocationField
         v-show="editLocation.isVisible"
         :props="activeLocation"
         @update-location="onUpdateLocation"
+        @click-user="onClickUserPullldown"
       />
+    </div>
+    <div class="user-search-container" v-show="userSearch.isVisible">
+      <UserSearchInput :location-index="editLocation.active" @select-user="onSelectUser" />
     </div>
   </div>
 </template>
@@ -34,16 +38,20 @@ import PulldownButton from '@/components/Atoms/PulldownButton.vue';
 import SearchInput from '@/components/Molecules/SearchInput.vue';
 import Location from '@/components/Atoms/Location.vue';
 import EditLocationField from '@/components/Organisms/EditLocationField.vue';
+import UserSearchInput from '@/components/Molecules/UserSearchInput.vue';
 import { maps as mapsApi } from '@/apis';
 
 export default Vue.extend({
-  components: { PulldownButton, SearchInput, Location, EditLocationField },
+  components: { PulldownButton, SearchInput, Location, EditLocationField, UserSearchInput },
   data: () => ({
     users: [],
     editLocation: {
       isVisible: false,
       active: 0,
       location: {},
+    },
+    userSearch: {
+      isVisible: false,
     },
   }),
   computed: {
@@ -87,7 +95,12 @@ export default Vue.extend({
       this.editLocation.active = index;
       this.editLocation.isVisible = true;
     },
-    updateLocation() {},
+    onClickUserPullldown() {
+      this.userSearch.isVisible = true;
+    },
+    onSelectUser() {
+      this.userSearch.isVisible = false;
+    },
   },
 });
 </script>
@@ -108,6 +121,7 @@ export default Vue.extend({
   position: absolute;
   top: 16px;
   left: 24px;
+  width: 230px;
 }
 .search-input {
   position: absolute;
@@ -130,5 +144,15 @@ export default Vue.extend({
   right: 16px;
   width: 320px;
   height: auto;
+}
+.user-search-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 480px;
+  height: 48px;
 }
 </style>

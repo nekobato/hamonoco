@@ -9,7 +9,7 @@
       <TextInput placeholder="Name" :value="props.name" @update="updateName" />
     </div>
     <div class="flex-row">
-      <TextInput placeholder="User" :value="props.user" @update="updateUser" />
+      <PulldownButton placeholder="User" @click.native="onClickUser">{{ userName }}</PulldownButton>
     </div>
     <div class="flex-row actions">
       <ActionButton type="negative">Cancel</ActionButton>
@@ -23,10 +23,18 @@ import Heading from '@/components/Atoms/Heading.vue';
 import TextInput from '@/components/Atoms/TextInput.vue';
 import NumberInput from '@/components/Atoms/NumberInput.vue';
 import ActionButton from '@/components/Atoms/ActionButton.vue';
+import PulldownButton from '@/components/Atoms/PulldownButton.vue';
 import Icon from '@/components/Atoms/Icon.vue';
 export default Vue.extend({
-  components: { Heading, NumberInput, TextInput, ActionButton },
+  components: { Heading, NumberInput, TextInput, ActionButton, PulldownButton },
   props: ['props'],
+  computed: {
+    userName() {
+      return this.$store.state.users[this.props.userId]
+        ? this.$store.state.users[this.props.userId].name
+        : 'User';
+    },
+  },
   methods: {
     updateX(x: number) {
       this.$emit('update-location', { x });
@@ -39,6 +47,9 @@ export default Vue.extend({
     },
     updateUser(name: string) {
       this.$emit('update-location', { name });
+    },
+    onClickUser() {
+      this.$emit('click-user');
     },
   },
 });

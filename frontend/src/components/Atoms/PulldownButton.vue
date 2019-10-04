@@ -12,6 +12,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .pulldown-button {
   padding: 8px;
+  width: 100%;
   height: 40px;
   background: hsla(0, 0, 100, 1);
   border: 1px solid rgba(0, 0, 0, 0.48);
