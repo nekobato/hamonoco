@@ -25,7 +25,7 @@ export default Vue.extend({
 @import '@/styles/colors.scss';
 
 .location {
-  position: relative;
+  position: absolute;
   width: 16px;
   height: 16px;
   background: $white;

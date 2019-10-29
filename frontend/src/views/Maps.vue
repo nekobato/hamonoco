@@ -3,15 +3,11 @@
     <div class="map-area">
       <img src="/img/18.png" />
     </div>
-    <div class="locations">
-      <Location
-        class="location"
-        v-for="(location, index) in locations"
-        :key="index"
-        :location="location"
-        @click.native.stop="onClickLocation(index)"
-      />
-    </div>
+    <Locations
+      :locations="locations"
+      @clickLocations="onClickMap"
+      @clickLocation="onClickLocation"
+    />
     <PulldownButton class="map-name">国会議事堂 衆議院</PulldownButton>
     <SearchInput class="search-input" placeholder="Search" />
     <div class="location-detail" v-show="targetLocation.isVisible">
@@ -29,12 +25,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import PulldownButton from '@/components/Atoms/PulldownButton.vue';
-import Location from '@/components/Atoms/Location.vue';
+import Locations from '@/components/Molecules/Locations.vue';
 import SearchInput from '@/components/Molecules/SearchInput.vue';
 import Heading from '@/components/Atoms/Heading.vue';
 
 export default Vue.extend({
-  components: { PulldownButton, SearchInput, Location, Heading },
+  components: { PulldownButton, SearchInput, Locations, Heading },
   data: () => ({
     targetLocation: {
       isVisible: false,
@@ -65,6 +61,9 @@ export default Vue.extend({
         },
       };
     },
+    onClickMap() {
+      this.targetLocation.isVisible = false;
+    },
   },
 });
 </script>
@@ -83,16 +82,6 @@ export default Vue.extend({
   position: absolute;
   top: 64px;
   left: 24px;
-}
-.locations {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-}
-.location {
-  position: absolute;
 }
 .location-detail {
   position: fixed;
