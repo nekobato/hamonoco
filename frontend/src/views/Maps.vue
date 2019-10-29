@@ -3,20 +3,24 @@
     <div class="map-area">
       <img src="/img/18.png" />
     </div>
-    <div class="locations-container">
+    <div class="locations">
       <Location
         class="location"
         v-for="(location, index) in locations"
         :key="index"
-        :style="{ left: location.x + 'px', top: location.y + 'px' }"
+        :location="location"
         @click.native.stop="onClickLocation(index)"
       />
     </div>
-    <PulldownButton class="map-name">{{ map.title }}</PulldownButton>
+    <PulldownButton class="map-name">国会議事堂 衆議院</PulldownButton>
     <SearchInput class="search-input" placeholder="Search" />
-    <div class="user-info-container" v-show="userInfo.isVisible">
-      <div class="user-info">
-        <span>{{ userInfo.data.name }}</span>
+    <div class="location-detail" v-show="targetLocation.isVisible">
+      <div class="edit-position-field">
+        <Heading level="2">{{ targetLocation.user.name }}</Heading>
+        <div class="flex-row">
+          <span>X: {{ targetLocation.location.x }}</span>
+          <span>Y: {{ targetLocation.location.y }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -27,40 +31,45 @@ import Vue from 'vue';
 import PulldownButton from '@/components/Atoms/PulldownButton.vue';
 import Location from '@/components/Atoms/Location.vue';
 import SearchInput from '@/components/Molecules/SearchInput.vue';
+import Heading from '@/components/Atoms/Heading.vue';
 
 export default Vue.extend({
-  components: { PulldownButton, SearchInput, Location },
-  data() {
-    return {
-      userInfo: {
-        isVisible: false,
-        locationIndex: 0,
-        data: {
-          name: '',
-        },
+  components: { PulldownButton, SearchInput, Location, Heading },
+  data: () => ({
+    targetLocation: {
+      isVisible: false,
+      user: {
+        name: '',
       },
-    };
-  },
+      location: {
+        x: 0,
+        y: 0,
+      },
+    },
+  }),
   computed: {
-    map() {
-      return this.$store.state.maps[0];
-    },
-    locations() {
+    locations(): any {
       return this.$store.state.locations;
-    },
-    users() {
-      return this.$store.state.users;
     },
   },
   methods: {
     onClickLocation(index: number) {
-      this.userInfo.isVisible = true;
+      this.targetLocation = {
+        isVisible: true,
+        user: {
+          name: '未設定',
+        },
+        location: {
+          x: this.locations[index].x,
+          y: this.locations[index].y,
+        },
+      };
     },
   },
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .maps {
   position: relative;
 }
@@ -79,23 +88,21 @@ export default Vue.extend({
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
 }
 .location {
   position: absolute;
 }
-.user-info-container {
+.location-detail {
   position: fixed;
+  top: 16px;
   right: 16px;
-  bottom: 16px;
+  padding: 16px;
   width: 320px;
-  height: 240px;
-  .user-info {
-    background: #fff;
-    height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.48);
-    border-radius: 4px;
-  }
+  height: auto;
+  background: #fff;
+  border: 1px solid #666;
+  border-radius: 8px;
 }
 </style>

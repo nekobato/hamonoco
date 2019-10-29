@@ -1,10 +1,19 @@
 <template>
-  <div class="location" />
+  <div
+    class="location"
+    :class="{ editable: editable }"
+    :style="{ left: location.x + 'px', top: location.y + 'px' }"
+  />
 </template>
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  props: ['status'],
+  props: ['status', 'location'],
+  computed: {
+    editable() {
+      return status === 'editable';
+    },
+  },
   methods: {
     onClick() {
       this.$emit('click');
@@ -22,7 +31,7 @@ export default Vue.extend({
   background: $white;
   border: 1px solid hsla(200, 80, 30, 1);
   border-radius: 8px;
-  cursor: grab;
+  cursor: pointer;
   &:after {
     content: '';
     position: absolute;
@@ -32,6 +41,9 @@ export default Vue.extend({
     height: 10px;
     background: hsla(200, 80, 30, 1);
     border-radius: 5px;
+  }
+  &.editable {
+    cursor: grab;
   }
 }
 </style>

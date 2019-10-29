@@ -34,7 +34,6 @@ export default new Vuex.Store<State>({
       state.locations.push(location);
     },
     UpdateLocation(state, { index, newProps }) {
-      console.log(state.locations[index], newProps);
       state.locations.splice(index, 1, Object.assign(state.locations[index], newProps));
     },
     AddUser(state, _) {

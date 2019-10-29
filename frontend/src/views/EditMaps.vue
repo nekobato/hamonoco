@@ -8,7 +8,7 @@
         class="location"
         v-for="(location, index) in locations"
         :key="index"
-        :style="{ left: location.x + 'px', top: location.y + 'px' }"
+        :location="location"
         draggable="true"
         @dragstart.native.stop="onDragOver"
         @dragend.native.stop="onDragEnd($event, index)"
@@ -39,7 +39,7 @@ import SearchInput from '@/components/Molecules/SearchInput.vue';
 import Location from '@/components/Atoms/Location.vue';
 import EditLocationField from '@/components/Organisms/EditLocationField.vue';
 import UserSearchInput from '@/components/Molecules/UserSearchInput.vue';
-import { maps as mapsApi } from '@/apis';
+// import { maps as mapsApi } from '@/apis';
 
 export default Vue.extend({
   components: { PulldownButton, SearchInput, Location, EditLocationField, UserSearchInput },
