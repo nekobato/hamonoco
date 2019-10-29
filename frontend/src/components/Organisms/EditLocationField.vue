@@ -2,11 +2,11 @@
   <div class="edit-position-field">
     <Heading level="2">Position Properties</Heading>
     <div class="flex-row">
-      <NumberInput class="position type-x" placeholder="x" :value="props.x" @update="updateX" />
-      <NumberInput class="position type-y" placeholder="y" :value="props.y" @update="updateY" />
+      <NumberInput class="position type-x" placeholder="x" :value="x" @update="updateX" />
+      <NumberInput class="position type-y" placeholder="y" :value="y" @update="updateY" />
     </div>
     <div class="flex-row">
-      <TextInput placeholder="Name" :value="props.name" @update="updateName" />
+      <TextInput placeholder="Name" :value="name" @update="updateName" />
     </div>
     <div class="flex-row">
       <PulldownButton placeholder="User" @click.native="onClickUser">{{ userName }}</PulldownButton>
@@ -27,12 +27,13 @@ import PulldownButton from '@/components/Atoms/PulldownButton.vue';
 import Icon from '@/components/Atoms/Icon.vue';
 export default Vue.extend({
   components: { Heading, NumberInput, TextInput, ActionButton, PulldownButton },
-  props: ['props'],
+  props: ['x', 'y', 'name', 'userId'],
   computed: {
-    userName() {
-      return this.$store.state.users[this.props.userId]
-        ? this.$store.state.users[this.props.userId].name
-        : 'User';
+    userName: {
+      cache: false,
+      get() {
+        return this.userId ? this.$store.state.users[this.userId].name : '';
+      },
     },
   },
   methods: {

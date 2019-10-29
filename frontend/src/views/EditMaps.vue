@@ -21,7 +21,10 @@
     <div class="edit-position-field-container">
       <EditLocationField
         v-show="editLocation.isVisible"
-        :props="activeLocation"
+        :x="activeLocation.x"
+        :y="activeLocation.y"
+        :name="''"
+        :userId="activeLocation.userId"
         @update-location="onUpdateLocation"
         @click-user="onClickUserPullldown"
       />
