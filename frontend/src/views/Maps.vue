@@ -9,7 +9,7 @@
       @clickLocation="onClickLocation"
     />
     <PulldownButton class="map-name">国会議事堂 衆議院</PulldownButton>
-    <SearchInput class="search-input" placeholder="Search" />
+    <UserSearchInput class="search-input" @select-user="onSelectUser" />
     <div class="location-detail" v-show="targetLocation.isVisible">
       <div class="edit-position-field">
         <Heading level="2">{{ targetLocation.user.name }}</Heading>
@@ -28,9 +28,10 @@ import PulldownButton from '@/components/Atoms/PulldownButton.vue';
 import Locations from '@/components/Molecules/Locations.vue';
 import SearchInput from '@/components/Molecules/SearchInput.vue';
 import Heading from '@/components/Atoms/Heading.vue';
+import UserSearchInput from '@/components/Molecules/UserSearchInput.vue';
 
 export default Vue.extend({
-  components: { PulldownButton, SearchInput, Locations, Heading },
+  components: { PulldownButton, Locations, Heading, UserSearchInput },
   data: () => ({
     targetLocation: {
       isVisible: false,
@@ -46,6 +47,9 @@ export default Vue.extend({
   computed: {
     locations(): any {
       return this.$store.state.locations;
+    },
+    users(): any {
+      return this.$store.state.users;
     },
   },
   methods: {
@@ -63,6 +67,9 @@ export default Vue.extend({
     },
     onClickMap() {
       this.targetLocation.isVisible = false;
+    },
+    onSelectUser(userIndex: number) {
+      console.log(this.users[userIndex]);
     },
   },
 });

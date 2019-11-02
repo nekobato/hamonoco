@@ -30,7 +30,7 @@
       />
     </div>
     <div class="user-search-container" v-show="userSearch.isVisible">
-      <UserSearchInput :location-index="editLocation.active" @select-user="onSelectUser" />
+      <UserSearchInput @select-user="onSelectUser" />
     </div>
   </div>
 </template>
@@ -101,8 +101,15 @@ export default Vue.extend({
     onClickUserPullldown() {
       this.userSearch.isVisible = true;
     },
-    onSelectUser() {
+    onSelectUser(userIndex: number) {
       this.userSearch.isVisible = false;
+
+      this.$store.commit('UpdateLocation', {
+        index: this.editLocation.active,
+        newProps: {
+          userId: userIndex,
+        },
+      });
     },
   },
 });
